@@ -38,10 +38,3 @@ Create a RESTful API for a simple task management system. Users should be able t
 * Authentication and security
 * Rate limiting
 * Unit testing
-* Documentation skills
-* Completing this project will give you a lot to talk about during job interviews, from your choice of architecture and technologies to the challenges you faced and how you solved them. It's also a practical demonstration of your skills that can complement the theoretical knowledge you might be asked about.
-
-
-
-
-
