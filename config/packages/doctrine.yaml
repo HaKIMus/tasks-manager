@@ -15,12 +15,16 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            Tasks:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-
+                dir: '%kernel.project_dir%/src/Tasks/Domain'
+                prefix: 'App\Tasks\Domain'
+                alias: Tasks
+            Authentication:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Authentication/Domain/'
+                prefix: 'App\Authentication\Domain'
+                alias: Authentication
 when@test:
     doctrine:
         dbal:

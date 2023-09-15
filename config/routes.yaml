@@ -1,5 +1,11 @@
-controllers:
+controllers_tasks:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Tasks/Ui/Api/
+        namespace: App\Tasks\Ui\Api
+    type: attribute
+
+controllers_auth:
+    resource:
+        path: ../src/Authentication/Ui/Api/
+        namespace: App\Authentication\Ui\Api
     type: attribute
