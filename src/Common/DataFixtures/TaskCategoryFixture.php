@@ -12,8 +12,6 @@ use Symfony\Component\Uid\Uuid;
 
 class TaskCategoryFixture extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $hasher) {}
-
     public function load(ObjectManager $manager): void
     {
         $taskCategory = new TaskCategory(
