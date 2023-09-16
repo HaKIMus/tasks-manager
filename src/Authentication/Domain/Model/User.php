@@ -106,7 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getSalt(): string
     {
-        return '23125123623636';
+        return $_ENV["SALT"] ?: "9067845067348956238";
     }
 
     public function eraseCredentials(): void {}

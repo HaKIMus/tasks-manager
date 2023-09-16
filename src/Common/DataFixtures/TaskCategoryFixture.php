@@ -7,7 +7,6 @@ namespace App\Common\DataFixtures;
 use App\Tasks\Domain\Model\TaskCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
 
 class TaskCategoryFixture extends Fixture
