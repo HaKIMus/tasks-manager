@@ -17,13 +17,13 @@ doctrine:
         mappings:
             Tasks:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Tasks/Domain'
-                prefix: 'App\Tasks\Domain'
+                dir: '%kernel.project_dir%/src/Tasks/Domain/Model/'
+                prefix: 'App\Tasks\Domain\Model'
                 alias: Tasks
             Authentication:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Authentication/Domain/'
-                prefix: 'App\Authentication\Domain'
+                dir: '%kernel.project_dir%/src/Authentication/Domain/Model/'
+                prefix: 'App\Authentication\Domain\Model'
                 alias: Authentication
 when@test:
     doctrine:

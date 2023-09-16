@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\DataFixtures;
 
-use App\Authentication\Domain\User;
+use App\Authentication\Domain\Model\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\DataFixtures;
 
-use App\Tasks\Domain\TaskCategory;
+use App\Tasks\Domain\Model\TaskCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Authentication\Infrastructure\Repository;
 
-use App\Authentication\Domain\User;
+use App\Authentication\Domain\Model\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

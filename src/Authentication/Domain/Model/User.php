@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Authentication\Domain;
+namespace App\Authentication\Domain\Model;
 
 use App\Authentication\Infrastructure\Repository\UserRepository;
-use App\Tasks\Domain\Task;
+use App\Tasks\Domain\Model\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -117,7 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         string $email,
         string $password,
         array $roles,
-        ArrayCollection $tasks,
+        Collection $tasks,
     ): User {
         $user = new User(
             $id,

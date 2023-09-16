@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 final class AuthenticationV1Controller extends AbstractController implements AppController
 {
     #[Route('/login', name: 'api_login', methods: ['POST'])]
-    public function login(#[CurrentUser] UserInterface $user): Response
+    public function login(#[CurrentUser] ?UserInterface $user): Response
     {
         if ($user === null) {
             return new JsonResponse(['message' => 'User not found'], Response::HTTP_UNAUTHORIZED);
@@ -24,7 +24,7 @@ final class AuthenticationV1Controller extends AbstractController implements App
 
 
         return $this->json([
-            'email' => $user->getEmail(),
+            'email' => $user->getUserIdentifier(),
             'roles' => $user->getRoles(),
         ]);
     }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Common\DataFixtures;
 
-use App\Authentication\Domain\User;
-use App\Tasks\Domain\Task;
+use App\Authentication\Domain\Model\User;
+use App\Tasks\Domain\Model\Task;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tasks\Domain;
+namespace App\Tasks\Domain\Model;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Authentication\Domain\User;
+use App\Authentication\Domain\Model\User;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
@@ -29,7 +29,7 @@ class Task
         #[Column(type: "string")] private string $name,
         #[Column(type: "text")] private string $description,
         #[Column(type: 'string', length: 50)] private string $status,
-        #[ManyToOne(targetEntity: TaskCategory::class)] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
+        #[ManyToOne(targetEntity: TaskCategory::class, cascade: ['persist'])] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
         private TaskCategory $category,
 
         #[Column(type: "datetime")] private \DateTimeInterface $dueTo,

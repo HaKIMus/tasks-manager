@@ -17,7 +17,7 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/*/Domain/'
+            - '../src/*/Domain/Model/'
             - '../src/Kernel.php'
 
     _instanceof:
@@ -26,3 +26,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Common\Factory\User\DummyUserFactory:
+        public: true
+    App\Common\Test\CreateAndFlushDummyUser:
+        public: true
+
+    App\Common\Factory\Task\DummyTaskFactory:
+        public: true
+    App\Common\Test\CreateAndFlushDummyTask:
+        public: true
