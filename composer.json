@@ -1,4 +1,6 @@
 {
+    "name": "taskmanager/api",
+    "description": "Tasks Manager App",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
