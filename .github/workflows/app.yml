@@ -17,6 +17,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
           - 3306:3306
@@ -48,7 +49,7 @@ jobs:
       - name: Create Database
         run: |
           sudo apt-get install -y mysql-client
-          mysql -h 127.0.0.1 -uroot -e 'CREATE DATABASE tasks;'
+          mysql -h 127.0.0.1 -uroot -proot -e 'CREATE DATABASE tasks;'
 
       - name: Set Environment Variables for Database
         run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/tasks" >> $GITHUB_ENV
