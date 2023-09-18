@@ -9,6 +9,7 @@ use App\Core\Factory\Task\DummyTaskFactory;
 use App\Core\Factory\Task\DummyTaskFactoryData;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskName;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 
@@ -23,7 +24,7 @@ final class DummyTaskFactoryTest extends TestCase
         $mockDummyTaskFactoryData = new DummyTaskFactoryData(
             $mockUser,
             $id,
-            'Test Name',
+            new TaskName('Test Name'),
             'Test Description',
             'Pending',
             $taskCategory,
@@ -34,7 +35,7 @@ final class DummyTaskFactoryTest extends TestCase
 
         $this->assertInstanceOf(Task::class, $task);
         $this->assertEquals($id, $task->getId());
-        $this->assertEquals('Test Name', $task->getName());
+        $this->assertEquals('Test Name', $task->getName()->toString());
         $this->assertEquals('Test Description', $task->getDescription());
         $this->assertEquals('Pending', $task->getStatus());
         $this->assertSame($taskCategory, $task->getCategory());

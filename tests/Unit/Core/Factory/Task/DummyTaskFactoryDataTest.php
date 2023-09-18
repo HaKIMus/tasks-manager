@@ -6,7 +6,9 @@ namespace App\Tests\Unit\Core\Factory\Task;
 
 use App\Authentication\Domain\Model\User;
 use App\Core\Factory\Task\DummyTaskFactoryData;
+use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskName;
 use DateTimeImmutable;
 use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +24,7 @@ final class DummyTaskFactoryDataTest extends TestCase
 
         // Validate properties are set by constructor
         $this->assertInstanceOf(Uuid::class, $dummyTaskFactoryData->getId());
-        $this->assertIsString($dummyTaskFactoryData->getName());
+        $this->assertInstanceOf(TaskName::class, $dummyTaskFactoryData->getName());
         $this->assertIsString($dummyTaskFactoryData->getDescription());
         $this->assertIsString($dummyTaskFactoryData->getStatus());
         $this->assertInstanceOf(TaskCategory::class, $dummyTaskFactoryData->getTaskCategory());
@@ -40,7 +42,7 @@ final class DummyTaskFactoryDataTest extends TestCase
         $dummyTaskFactoryData = new DummyTaskFactoryData(
             $mockUser,
             Uuid::v4(),
-            'Test Name',
+            new TaskName('Test Name'),
             'Test Description',
             'Pending',
             $mockTaskCategory,
@@ -49,7 +51,7 @@ final class DummyTaskFactoryDataTest extends TestCase
         );
 
         $this->assertNotNull($dummyTaskFactoryData->getId());
-        $this->assertEquals('Test Name', $dummyTaskFactoryData->getName());
+        $this->assertEquals('Test Name', $dummyTaskFactoryData->getName()->toString());
         $this->assertEquals('Test Description', $dummyTaskFactoryData->getDescription());
         $this->assertEquals('Pending', $dummyTaskFactoryData->getStatus());
         $this->assertSame($mockTaskCategory, $dummyTaskFactoryData->getTaskCategory());

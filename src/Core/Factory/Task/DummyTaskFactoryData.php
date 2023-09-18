@@ -8,6 +8,7 @@ use App\Authentication\Domain\Model\User;
 use App\Core\Factory\DataFactory;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskName;
 use DateTimeInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -17,7 +18,7 @@ class DummyTaskFactoryData extends DataFactory
     public function __construct(
         private readonly User $user,
         private ?Uuid $id = null,
-        private ?string $name = null,
+        private ?TaskName $name = null,
         private ?string $description = null,
         private ?string $status = null,
         private ?TaskCategory $taskCategory = null,
@@ -31,7 +32,7 @@ class DummyTaskFactoryData extends DataFactory
         }
 
         if ($name === null) {
-            $this->name = $this->faker->title();
+            $this->name = new TaskName($this->faker->title());
         }
 
         if ($description === null) {
@@ -65,7 +66,7 @@ class DummyTaskFactoryData extends DataFactory
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ?TaskName
     {
         return $this->name;
     }
