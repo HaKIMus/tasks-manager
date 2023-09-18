@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Common\Contract\AppController;
+use App\Core\Contract\AppController;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

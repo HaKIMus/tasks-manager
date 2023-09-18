@@ -21,18 +21,18 @@ services:
             - '../src/Kernel.php'
 
     _instanceof:
-        App\Common\Contract\AppController:
+        App\Core\Contract\AppController:
             tags: [ 'controller.service_arguments' ]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Common\Factory\User\DummyUserFactory:
+    App\Core\Factory\User\DummyUserFactory:
         public: true
-    App\Common\Test\CreateAndFlushDummyUser:
+    App\Core\Test\CreateAndFlushDummyUser:
         public: true
 
-    App\Common\Factory\Task\DummyTaskFactory:
+    App\Core\Factory\Task\DummyTaskFactory:
         public: true
-    App\Common\Test\CreateAndFlushDummyTask:
+    App\Core\Test\CreateAndFlushDummyTask:
         public: true
