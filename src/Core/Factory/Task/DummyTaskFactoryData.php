@@ -8,7 +8,9 @@ use App\Authentication\Domain\Model\User;
 use App\Core\Factory\DataFactory;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
+use App\Tasks\Domain\Model\TaskStatus;
 use DateTimeInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -19,8 +21,8 @@ class DummyTaskFactoryData extends DataFactory
         private readonly User $user,
         private ?Uuid $id = null,
         private ?TaskName $name = null,
-        private ?string $description = null,
-        private ?string $status = null,
+        private ?TaskDescription $description = null,
+        private ?TaskStatus $status = null,
         private ?TaskCategory $taskCategory = null,
         private ?DateTimeInterface $createdAt = null,
         private ?DateTimeInterface $dueTo = null,
@@ -36,14 +38,14 @@ class DummyTaskFactoryData extends DataFactory
         }
 
         if ($description === null) {
-            $this->description = $this->faker->text();
+            $this->description = new TaskDescription($this->faker->text());
         }
 
         if ($status === null) {
             $this->status = $this->faker->randomElement([
-                Task::STATUS_COMPLETED,
-                Task::STATUS_IN_PROGRESS,
-                Task::STATUS_PENDING,
+                new TaskStatus(TaskStatus::STATUS_COMPLETED),
+                new TaskStatus(TaskStatus::STATUS_IN_PROGRESS),
+                new TaskStatus(TaskStatus::STATUS_PENDING),
             ]);
         }
 
@@ -71,12 +73,12 @@ class DummyTaskFactoryData extends DataFactory
         return $this->name;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): ?TaskDescription
     {
         return $this->description;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?TaskStatus
     {
         return $this->status;
     }

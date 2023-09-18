@@ -8,7 +8,10 @@ use App\Authentication\Domain\Model\User;
 use App\Core\Factory\Task\DummyTaskFactoryData;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
+use App\Tasks\Domain\Model\TaskStatus;
+use App\Tests\Unit\Tasks\Domain\Model\TaskStatusTest;
 use DateTimeImmutable;
 use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
@@ -25,8 +28,8 @@ final class DummyTaskFactoryDataTest extends TestCase
         // Validate properties are set by constructor
         $this->assertInstanceOf(Uuid::class, $dummyTaskFactoryData->getId());
         $this->assertInstanceOf(TaskName::class, $dummyTaskFactoryData->getName());
-        $this->assertIsString($dummyTaskFactoryData->getDescription());
-        $this->assertIsString($dummyTaskFactoryData->getStatus());
+        $this->assertInstanceOf(TaskDescription::class, $dummyTaskFactoryData->getDescription());
+        $this->assertInstanceOf(TaskStatus::class, $dummyTaskFactoryData->getStatus());
         $this->assertInstanceOf(TaskCategory::class, $dummyTaskFactoryData->getTaskCategory());
         $this->assertInstanceOf(DateTimeInterface::class, $dummyTaskFactoryData->getCreatedAt());
         $this->assertInstanceOf(DateTimeInterface::class, $dummyTaskFactoryData->getDueTo());
@@ -43,8 +46,8 @@ final class DummyTaskFactoryDataTest extends TestCase
             $mockUser,
             Uuid::v4(),
             new TaskName('Test Name'),
-            'Test Description',
-            'Pending',
+            new TaskDescription('Test Description'),
+            new TaskStatus('Pending'),
             $mockTaskCategory,
             $mockDateTime,
             $mockDateTime
@@ -52,8 +55,8 @@ final class DummyTaskFactoryDataTest extends TestCase
 
         $this->assertNotNull($dummyTaskFactoryData->getId());
         $this->assertEquals('Test Name', $dummyTaskFactoryData->getName()->toString());
-        $this->assertEquals('Test Description', $dummyTaskFactoryData->getDescription());
-        $this->assertEquals('Pending', $dummyTaskFactoryData->getStatus());
+        $this->assertEquals(new TaskDescription('Test Description'), $dummyTaskFactoryData->getDescription());
+        $this->assertEquals(new TaskStatus('Pending'), $dummyTaskFactoryData->getStatus());
         $this->assertSame($mockTaskCategory, $dummyTaskFactoryData->getTaskCategory());
         $this->assertSame($mockDateTime, $dummyTaskFactoryData->getCreatedAt());
         $this->assertSame($mockDateTime, $dummyTaskFactoryData->getDueTo());

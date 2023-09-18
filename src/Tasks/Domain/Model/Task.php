@@ -24,8 +24,8 @@ class Task
     public function __construct(
         #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
         #[Embedded(class: TaskName::class)] private TaskName $name,
-        #[Embedded(class: TaskDescription::class)] private string $description,
-        #[Embedded(class: TaskStatus::class)] private string $status,
+        #[Embedded(class: TaskDescription::class)] private TaskDescription $description,
+        #[Embedded(class: TaskStatus::class)] private TaskStatus $status,
         #[ManyToOne(targetEntity: TaskCategory::class, cascade: ['persist'])] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
         private TaskCategory $category,
 
@@ -53,12 +53,12 @@ class Task
         return $this->name;
     }
 
-    public function getDescription(): string
+    public function getDescription(): TaskDescription
     {
         return $this->description;
     }
 
-    public function getStatus(): string
+    public function getStatus(): TaskStatus
     {
         return $this->status;
     }

@@ -9,7 +9,9 @@ use App\Core\Factory\Task\DummyTaskFactory;
 use App\Core\Factory\Task\DummyTaskFactoryData;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
+use App\Tasks\Domain\Model\TaskStatus;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 
@@ -25,8 +27,8 @@ final class DummyTaskFactoryTest extends TestCase
             $mockUser,
             $id,
             new TaskName('Test Name'),
-            'Test Description',
-            'Pending',
+            new TaskDescription('Test Description'),
+            new TaskStatus(TaskStatus::STATUS_PENDING),
             $taskCategory,
         );
 
@@ -36,8 +38,8 @@ final class DummyTaskFactoryTest extends TestCase
         $this->assertInstanceOf(Task::class, $task);
         $this->assertEquals($id, $task->getId());
         $this->assertEquals('Test Name', $task->getName()->toString());
-        $this->assertEquals('Test Description', $task->getDescription());
-        $this->assertEquals('Pending', $task->getStatus());
+        $this->assertEquals('Test Description', $task->getDescription()->toString());
+        $this->assertEquals('Pending', $task->getStatus()->toString());
         $this->assertSame($taskCategory, $task->getCategory());
         $this->assertEquals($mockUser, $task->getUser());
     }
