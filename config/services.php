@@ -10,5 +10,5 @@ return function(ContainerConfigurator $container) : void {
         ->autowire()
         ->autoconfigure();
 
-    $services->load('App\Common\DataFixtures', '../src/Common/DataFixtures');
+    $services->load('App\Core\DataFixtures', '../src/Common/DataFixtures');
 };

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Authentication\Ui\Api\V1;
 
-use App\Common\Contract\AppController;
+use App\Core\Contract\AppController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

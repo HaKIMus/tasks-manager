@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tasks\Ui\Api\V1;
 
 use App\Authentication\Domain\Model\User;
-use App\Common\Contract\AppController;
+use App\Core\Contract\AppController;
 use App\Tasks\Domain\UserTasksResource;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

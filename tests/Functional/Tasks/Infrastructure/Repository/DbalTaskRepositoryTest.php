@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Tasks\Infrastructure\Repository;
 
-use App\Common\Test\CreateAndFlushDummyTask;
-use App\Common\Test\CreateAndFlushDummyUser;
+use App\Core\Test\CreateAndFlushDummyTask;
+use App\Core\Test\CreateAndFlushDummyUser;
 use App\Tasks\Infrastructure\Repository\DbalTaskRepository;
 use App\Tests\Common\Contract\AbstractRepositoryTestCase;
 
