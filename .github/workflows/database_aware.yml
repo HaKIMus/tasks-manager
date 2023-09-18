@@ -1,4 +1,4 @@
-name: PHP Composer and PHPUnit
+name: PHP Composer and Functional Tests
 
 on:
   push:
@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     services:
@@ -57,5 +56,5 @@ jobs:
       - name: Run migrations
         run: php bin/console doctrine:migrations:migrate --no-interaction
 
-      - name: Run tests
-        run: ./vendor/bin/phpunit
+      - name: Run Functional Tests
+        run: ./vendor/bin/phpunit tests/Functional
