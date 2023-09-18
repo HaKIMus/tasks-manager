@@ -1,0 +1,60 @@
+name: PHP Composer and Functional Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+          coverage: xdebug
+
+      - name: Validate composer.json
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping -h127.0.0.1 --silent; do
+            sleep 1
+          done
+
+      - name: Create Database
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql -h 127.0.0.1 -uroot -proot -e 'CREATE DATABASE tasks;'
+
+      - name: Set Environment Variables for Database
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/tasks" >> $GITHUB_ENV
+
+      - name: Run migrations
+        run: php bin/console doctrine:migrations:migrate --no-interaction
+
+      - name: Run Functional Tests
+        run: ./vendor/bin/phpunit tests/Functional
