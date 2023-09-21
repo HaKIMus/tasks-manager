@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Core\Factory\Task;
 
 use App\Authentication\Domain\Model\User;
-use App\Core\Factory\Task\DummyTaskFactoryData;
-use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
 use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
 use App\Tasks\Domain\Model\TaskStatus;
-use App\Tests\Unit\Tasks\Domain\Model\TaskStatusTest;
+use App\Tasks\Infrastructure\Factory\DummyTaskFactoryData;
 use DateTimeImmutable;
 use DateTimeInterface;
 use PHPUnit\Framework\TestCase;

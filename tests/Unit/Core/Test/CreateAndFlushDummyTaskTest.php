@@ -6,8 +6,8 @@ namespace App\Tests\Unit\Core\Test;
 
 use App\Authentication\Domain\Model\User;
 use App\Core\Factory\Task\DummyTaskFactory;
-use App\Core\Test\CreateAndFlushDummyTask;
 use App\Tasks\Domain\Model\Task;
+use App\Tasks\Infrastructure\Dbal\CreateAndFlushTask;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +34,7 @@ final class CreateAndFlushDummyTaskTest extends TestCase
         $user = $this->createMock(User::class);
 
         $createAndFlushDummyTask
-            = new CreateAndFlushDummyTask($dummyTaskFactory, $entityManager);
+            = new CreateAndFlushTask($dummyTaskFactory, $entityManager);
         $task = $createAndFlushDummyTask->create($user);
 
         $this->assertSame($dummyTask, $task);

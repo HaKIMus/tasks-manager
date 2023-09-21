@@ -8,7 +8,7 @@ use App\Authentication\Domain\Model\User;
 
 /**
  * @template DATA of DataFactory
- * @implements Factory<User, DataFactory>
+ * @extends Factory<User, DataFactory>
  */
 interface UserFactory extends Factory
 {

@@ -11,30 +11,24 @@ use Doctrine\ORM\Mapping\Embeddable;
 use Webmozart\Assert\Assert;
 
 #[Embeddable]
-readonly class TaskStatus extends ValueObject
+readonly class TaskCategoryName extends ValueObject
 {
-    public const STATUS_PENDING = 'Pending';
-    public const STATUS_IN_PROGRESS = 'In Progress';
-    public const STATUS_COMPLETED = 'Completed';
-
     public function __construct(
         #[Column(type: 'string', length: 50)]
-        private string $status
+        private string $name
     ) {
-        match ($this->status) {
-            self::STATUS_PENDING, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED => true,
-            default => throw new \InvalidArgumentException('Invalid status'),
-        };
+        Assert::notEmpty($this->name);
+        Assert::lengthBetween($this->name, 1, 50);
     }
 
-    public function getStatus(): string
+    public function getName(): string
     {
-        return $this->status;
+        return $this->name;
     }
 
     public function toString(): string
     {
-        return $this->status;
+        return $this->name;
     }
 
     /**
@@ -45,7 +39,7 @@ readonly class TaskStatus extends ValueObject
     {
         $this->assertOfTheSameType($other);
 
-        return $this->status === $other->status;
+        return $this->name === $other->name;
     }
 
 }

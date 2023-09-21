@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tasks\Domain\Model;
 
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
@@ -16,8 +17,8 @@ use Symfony\Component\Uid\Uuid;
 class TaskCategory
 {
     public function __construct(
-        #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
-        #[Column(type: "string")] private string $name,
+        #[Id] #[Column(type: UuidType::NAME)] private Uuid                                        $id,
+        #[Embedded(class: TaskCategoryName::class, columnPrefix: false)] private TaskCategoryName $name,
     )
     {
     }
@@ -27,7 +28,7 @@ class TaskCategory
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): TaskCategoryName
     {
         return $this->name;
     }

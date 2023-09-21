@@ -21,5 +21,8 @@ readonly abstract class ValueObject
 
     abstract public function toString(): string;
 
+    /**
+     * @param static $other
+     */
     abstract public function equals(ValueObject $other): bool;
 }

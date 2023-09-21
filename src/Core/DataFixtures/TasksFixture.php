@@ -17,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 class TasksFixture extends Fixture implements DependentFixtureInterface
 {
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var User $user */
         $user = $this->getReference("user");

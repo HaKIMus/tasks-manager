@@ -2,17 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Factory\User;
+namespace App\Authentication\Infrastructure\Factory;
 
 use App\Core\Factory\DataFactory;
+use App\Core\Factory\FakerDataFactory;
+use App\Tasks\Domain\Model\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
 
-class DummyUserFactoryData extends DataFactory
+final class DummyUserFactoryData extends FakerDataFactory
 {
 
+    /**
+     * @param array<string> $roles
+     * @param Collection<int, Task>|null $tasks
+     */
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
         private ?Uuid $id = null,
@@ -64,11 +70,17 @@ class DummyUserFactoryData extends DataFactory
         return $this->password;
     }
 
+    /**
+     * @return Collection<int, Task>|null
+     */
     public function getTasks(): ?Collection
     {
         return $this->tasks;
     }
 
+    /**
+     * @return array<string>|null
+     */
     public function getRoles(): ?array
     {
         return $this->roles;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Authentication\Infrastructure\Repository;
+namespace App\Authentication\Infrastructure\Dbal\Repository;
 
 use App\Authentication\Domain\Model\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Tasks\Infrastructure\Repository;
 
-use App\Core\Test\CreateAndFlushDummyTask;
-use App\Core\Test\CreateAndFlushDummyUser;
-use App\Tasks\Infrastructure\Repository\DbalTaskRepository;
+use App\Authentication\Infrastructure\Dbal\CreateAndFlushUser;
+use App\Authentication\Infrastructure\Factory\DummyUserFactory;
+use App\Authentication\Infrastructure\Factory\DummyUserFactoryData;
+use App\Core\Factory\UserFactory;
+use App\Tasks\Infrastructure\Dbal\CreateAndFlushTask;
+use App\Tasks\Infrastructure\Dbal\Repository\DbalTaskRepository;
 use App\Tests\Common\Contract\AbstractRepositoryTestCase;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @extends AbstractRepositoryTestCase<DbalTaskRepository>
@@ -16,26 +20,38 @@ final class DbalTaskRepositoryTest extends AbstractRepositoryTestCase
 {
     protected string $repositoryClass = DbalTaskRepository::class;
 
-    private CreateAndFlushDummyUser $createAndFlushDummyUser;
+    private CreateAndFlushUser $createAndFlushDummyUser;
 
-    private CreateAndFlushDummyTask $createAndFlushDummyTask;
+    private CreateAndFlushTask $createAndFlushDummyTask;
+
+    private UserFactory $userFactory;
+
+    private UserPasswordHasherInterface $hasher;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var CreateAndFlushDummyUser $createAndFlushDummyUser */
-        $createAndFlushDummyUser = $this->container->get(CreateAndFlushDummyUser::class);
+        /** @var CreateAndFlushUser $createAndFlushDummyUser */
+        $createAndFlushDummyUser = $this->container->get(CreateAndFlushUser::class);
         $this->createAndFlushDummyUser = $createAndFlushDummyUser;
 
-        /** @var CreateAndFlushDummyTask $createAndFlushDummyTask */
-        $createAndFlushDummyTask = $this->container->get(CreateAndFlushDummyTask::class);
+        /** @var CreateAndFlushTask $createAndFlushDummyTask */
+        $createAndFlushDummyTask = $this->container->get(CreateAndFlushTask::class);
         $this->createAndFlushDummyTask = $createAndFlushDummyTask;
+
+        /** @var UserFactory $userFactory */
+        $userFactory = $this->container->get(DummyUserFactory::class);
+        $this->userFactory = $userFactory;
+
+        /** @var UserPasswordHasherInterface $hasher */
+        $hasher = $this->container->get(UserPasswordHasherInterface::class);
+        $this->hasher = $hasher;
     }
 
     public function testSomething(): void
     {
-        $user = $this->createAndFlushDummyUser->create();
+        $user = $this->createAndFlushDummyUser->create($this->userFactory, new DummyUserFactoryData($this->hasher));
         $this->createAndFlushDummyTask->create($user);
 
         $tasks = $this->repository->findForUser($user);

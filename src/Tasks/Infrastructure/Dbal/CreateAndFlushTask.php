@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Test;
+namespace App\Tasks\Infrastructure\Dbal;
 
 use App\Authentication\Domain\Model\User;
-use App\Core\Factory\Task\DummyTaskFactory;
-use App\Core\Factory\Task\DummyTaskFactoryData;
 use App\Tasks\Domain\Model\Task;
+use App\Tasks\Infrastructure\Factory\DummyTaskFactory;
+use App\Tasks\Infrastructure\Factory\DummyTaskFactoryData;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\When;
 
-#[When(env: 'test')]
-readonly class CreateAndFlushDummyTask
+readonly class CreateAndFlushTask
 {
 
     public function __construct(
