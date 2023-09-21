@@ -9,7 +9,9 @@ use App\Core\Factory\Task\DummyTaskFactory;
 use App\Core\Factory\Task\DummyTaskFactoryData;
 use App\Tasks\Domain\Model\Task;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
+#[When(env: 'test')]
 readonly class CreateAndFlushDummyTask
 {
 

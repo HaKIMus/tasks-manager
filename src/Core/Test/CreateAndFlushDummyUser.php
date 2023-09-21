@@ -8,8 +8,10 @@ use App\Authentication\Domain\Model\User;
 use App\Core\Factory\User\DummyUserFactory;
 use App\Core\Factory\User\DummyUserFactoryData;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[When(env: 'test')]
 readonly class CreateAndFlushDummyUser
 {
 

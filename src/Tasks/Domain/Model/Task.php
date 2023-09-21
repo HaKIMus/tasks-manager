@@ -23,9 +23,9 @@ class Task
 {
     public function __construct(
         #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
-        #[Embedded(class: TaskName::class)] private TaskName $name,
-        #[Embedded(class: TaskDescription::class)] private TaskDescription $description,
-        #[Embedded(class: TaskStatus::class)] private TaskStatus $status,
+        #[Embedded(class: TaskName::class, columnPrefix: false)] private TaskName $name,
+        #[Embedded(class: TaskDescription::class, columnPrefix: false)] private TaskDescription $description,
+        #[Embedded(class: TaskStatus::class, columnPrefix: false)] private TaskStatus $status,
         #[ManyToOne(targetEntity: TaskCategory::class, cascade: ['persist'])] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
         private TaskCategory $category,
 
