@@ -8,7 +8,7 @@ use App\Core\Contract\ValueObject;
 use App\Core\Exception\ValueObjectOfInvalidTypeException;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
-use Webmozart\Assert\Assert;
+use InvalidArgumentException;
 
 #[Embeddable]
 readonly class TaskStatus extends ValueObject
@@ -23,7 +23,7 @@ readonly class TaskStatus extends ValueObject
     ) {
         match ($this->status) {
             self::STATUS_PENDING, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED => true,
-            default => throw new \InvalidArgumentException('Invalid status'),
+            default => throw new InvalidArgumentException('Invalid status'),
         };
     }
 

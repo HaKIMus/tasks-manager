@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tasks\Infrastructure\Factory;
 
 use App\Core\Factory\TaskFactory;
-use App\Core\Factory\UserFactory;
 use App\Tasks\Domain\Model\Task;
 
 /**

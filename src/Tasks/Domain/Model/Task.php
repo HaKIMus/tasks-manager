@@ -6,6 +6,7 @@ namespace App\Tasks\Domain\Model;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Authentication\Domain\Model\User;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Entity;
@@ -29,13 +30,14 @@ class Task
         #[ManyToOne(targetEntity: TaskCategory::class, cascade: ['persist'])] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
         private TaskCategory $category,
 
-        #[Column(type: "datetime")] private \DateTimeInterface $dueTo,
-        #[Column(type: "datetime")] private readonly \DateTimeInterface $createdAt,
+        #[Column(type: "datetime")] private DateTimeInterface $dueTo,
+        #[Column(type: "datetime")] private readonly DateTimeInterface $createdAt,
 
         #[ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
         #[JoinColumn(nullable: false)]
         private User $user,
-    ) {}
+    ) {
+    }
 
     public function getId(): Uuid
     {
@@ -68,12 +70,12 @@ class Task
         return $this->category;
     }
 
-    public function getDueTo(): \DateTimeInterface
+    public function getDueTo(): DateTimeInterface
     {
         return $this->dueTo;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }

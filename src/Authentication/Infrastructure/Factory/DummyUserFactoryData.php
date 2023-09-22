@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Authentication\Infrastructure\Factory;
 
-use App\Core\Factory\DataFactory;
 use App\Core\Factory\FakerDataFactory;
 use App\Tasks\Domain\Model\Task;
 use Doctrine\Common\Collections\ArrayCollection;

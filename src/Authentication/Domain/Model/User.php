@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     public function getRoles(): array
@@ -109,7 +109,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $_ENV["SALT"] ?: "9067845067348956238";
     }
 
-    public function eraseCredentials(): void {}
+    public function eraseCredentials(): void
+    {
+    }
 
     /**
      * @param array<string> $roles

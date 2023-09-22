@@ -7,10 +7,12 @@ namespace App\Core\Factory;
 use Faker\Factory;
 use Faker\Generator;
 
-abstract class FakerDataFactory implements DataFactory {
+abstract class FakerDataFactory implements DataFactory
+{
     protected Generator $faker;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->faker = Factory::create();
     }
 }

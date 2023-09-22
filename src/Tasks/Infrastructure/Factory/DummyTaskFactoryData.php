@@ -18,16 +18,15 @@ final class DummyTaskFactoryData extends FakerDataFactory
 {
 
     public function __construct(
-        private readonly User      $user,
-        private ?Uuid              $id = null,
-        private ?TaskName          $name = null,
-        private ?TaskDescription   $description = null,
-        private ?TaskStatus        $status = null,
-        private ?TaskCategory      $taskCategory = null,
+        private readonly User $user,
+        private ?Uuid $id = null,
+        private ?TaskName $name = null,
+        private ?TaskDescription $description = null,
+        private ?TaskStatus $status = null,
+        private ?TaskCategory $taskCategory = null,
         private ?DateTimeInterface $createdAt = null,
         private ?DateTimeInterface $dueTo = null,
-    )
-    {
+    ) {
         parent::__construct();
 
         if ($id === null) {

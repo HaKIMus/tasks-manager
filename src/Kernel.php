@@ -16,7 +16,6 @@ class Kernel extends BaseKernel
     protected function build(ContainerBuilder $container): void
     {
         $container->registerForAutoconfiguration(AppController::class)
-            ->addTag('controller.service_arguments')
-        ;
+            ->addTag('controller.service_arguments');
     }
 }

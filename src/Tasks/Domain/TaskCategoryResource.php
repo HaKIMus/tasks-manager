@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tasks\Domain;
 
-use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskCategory;
 use App\Tasks\Domain\Model\TaskCategoryName;
 use Symfony\Component\Uid\Uuid;

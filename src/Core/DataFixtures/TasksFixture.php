@@ -9,6 +9,8 @@ use App\Tasks\Domain\Model\Task;
 use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
 use App\Tasks\Domain\Model\TaskStatus;
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -28,8 +30,8 @@ class TasksFixture extends Fixture implements DependentFixtureInterface
             new TaskDescription('Task 1 description'),
             new TaskStatus(TaskStatus::STATUS_PENDING),
             $this->getReference("general_category"),
-            (new \DateTimeImmutable('now'))->add(new \DateInterval("P3M")),
-            new \DateTimeImmutable('now'),
+            (new DateTimeImmutable('now'))->add(new DateInterval("P3M")),
+            new DateTimeImmutable('now'),
             $user
         );
 

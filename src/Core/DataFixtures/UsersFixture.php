@@ -13,7 +13,9 @@ use Symfony\Component\Uid\Uuid;
 
 class UsersFixture extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $hasher) {}
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
 
     public function load(ObjectManager $manager): void
     {

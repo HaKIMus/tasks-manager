@@ -18,7 +18,7 @@ use Symfony\Component\Uid\Uuid;
  * @extends ServiceEntityRepository<Task>
  */
 final class DbalTaskRepository extends ServiceEntityRepository implements
-  TaskResource, UserTasksResource
+    TaskResource, UserTasksResource
 {
 
     private EntityManagerInterface $entityManager;
