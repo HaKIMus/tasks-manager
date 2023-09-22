@@ -5,24 +5,25 @@ declare(strict_types=1);
 namespace App\Tasks\Domain\Model;
 
 use App\Core\Contract\ValueObject;
+use App\Core\Exception\ValueObjectOfInvalidTypeException;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
-use Webmozart\Assert\Assert;
+use InvalidArgumentException;
 
 #[Embeddable]
 readonly class TaskStatus extends ValueObject
 {
-    const STATUS_PENDING = 'Pending';
-    const STATUS_IN_PROGRESS = 'In Progress';
-    const STATUS_COMPLETED = 'Completed';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_IN_PROGRESS = 'in progress';
+    public const STATUS_COMPLETED = 'completed';
 
     public function __construct(
         #[Column(type: 'string', length: 50)]
         private string $status
     ) {
-        match ($status) {
+        match ($this->status) {
             self::STATUS_PENDING, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED => true,
-            default => throw new \InvalidArgumentException('Invalid status'),
+            default => throw new InvalidArgumentException('Invalid status'),
         };
     }
 
@@ -36,6 +37,10 @@ readonly class TaskStatus extends ValueObject
         return $this->status;
     }
 
+    /**
+     * @param static $other
+     * @throws ValueObjectOfInvalidTypeException
+     */
     public function equals(ValueObject $other): bool
     {
         $this->assertOfTheSameType($other);

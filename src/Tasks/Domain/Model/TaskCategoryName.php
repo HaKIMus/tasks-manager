@@ -11,14 +11,14 @@ use Doctrine\ORM\Mapping\Embeddable;
 use Webmozart\Assert\Assert;
 
 #[Embeddable]
-readonly class TaskName extends ValueObject
+readonly class TaskCategoryName extends ValueObject
 {
     public function __construct(
-        #[Column(type: 'string', length: 255)]
+        #[Column(type: 'string', length: 50)]
         private string $name
     ) {
         Assert::notEmpty($this->name);
-        Assert::lengthBetween($this->name, 1, 255);
+        Assert::lengthBetween($this->name, 1, 50);
     }
 
     public function getName(): string

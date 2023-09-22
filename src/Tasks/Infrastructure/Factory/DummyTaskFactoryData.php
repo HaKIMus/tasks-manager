@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Factory\Task;
+namespace App\Tasks\Infrastructure\Factory;
 
 use App\Authentication\Domain\Model\User;
-use App\Core\Factory\DataFactory;
-use App\Tasks\Domain\Model\Task;
+use App\Core\Factory\FakerDataFactory;
 use App\Tasks\Domain\Model\TaskCategory;
+use App\Tasks\Domain\Model\TaskCategoryName;
 use App\Tasks\Domain\Model\TaskDescription;
 use App\Tasks\Domain\Model\TaskName;
 use App\Tasks\Domain\Model\TaskStatus;
 use DateTimeInterface;
 use Symfony\Component\Uid\Uuid;
 
-class DummyTaskFactoryData extends DataFactory
+final class DummyTaskFactoryData extends FakerDataFactory
 {
 
     public function __construct(
@@ -50,8 +50,10 @@ class DummyTaskFactoryData extends DataFactory
         }
 
         if ($taskCategory === null) {
-            $this->taskCategory = new TaskCategory(Uuid::v4(),
-                $this->faker->title());
+            $this->taskCategory = new TaskCategory(
+                Uuid::v4(),
+                new TaskCategoryName($this->faker->title()),
+            );
         }
 
         if ($createdAt === null) {

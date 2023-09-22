@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Factory\User;
+namespace App\Authentication\Infrastructure\Factory;
 
 use App\Authentication\Domain\Model\User;
 use App\Core\Factory\UserFactory;
 
 /**
- * @implements UserFactory<\App\Core\Factory\User\DummyUserFactoryData>
+ * @implements UserFactory<DummyUserFactoryData>
  */
 class DummyUserFactory implements UserFactory
 {
 
     /**
-     * @param \App\Core\Factory\User\DummyUserFactoryData $factoryData
+     * @param DummyUserFactoryData $factoryData
      */
     public function create(mixed $factoryData): User
     {

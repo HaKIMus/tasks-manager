@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Factory\Task;
+namespace App\Tasks\Infrastructure\Factory;
 
 use App\Core\Factory\TaskFactory;
-use App\Core\Factory\UserFactory;
 use App\Tasks\Domain\Model\Task;
 
 /**
- * @implements UserFactory<\App\Core\Factory\Task\DummyTaskFactoryData>
+ * @implements TaskFactory<DummyTaskFactoryData>
  */
-class DummyTaskFactory implements TaskFactory
+final class DummyTaskFactory implements TaskFactory
 {
 
     /**
-     * @param \App\Core\Factory\Task\DummyTaskFactoryData $factoryData
+     * @param DummyTaskFactoryData $factoryData
      */
     public function create(mixed $factoryData): Task
     {

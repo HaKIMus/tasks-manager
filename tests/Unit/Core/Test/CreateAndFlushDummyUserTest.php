@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Core\Test;
 
 use App\Authentication\Domain\Model\User;
-use App\Core\Factory\User\DummyUserFactory;
-use App\Core\Test\CreateAndFlushDummyUser;
+use App\Authentication\Infrastructure\Dbal\CreateAndFlushUser;
+use App\Authentication\Infrastructure\Factory\DummyUserFactory;
+use App\Authentication\Infrastructure\Factory\DummyUserFactoryData;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -31,8 +32,8 @@ final class CreateAndFlushDummyUserTest extends TestCase
         $entityManager->expects($this->once())
             ->method('flush');
 
-        $createAndFlushDummyUser = new CreateAndFlushDummyUser($dummyUserFactory, $entityManager, $hasher);
-        $user = $createAndFlushDummyUser->create();
+        $createAndFlushDummyUser = new CreateAndFlushUser($entityManager);
+        $user = $createAndFlushDummyUser->create($dummyUserFactory, new DummyUserFactoryData($hasher));
 
         $this->assertSame($dummyUser, $user);
     }

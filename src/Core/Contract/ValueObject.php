@@ -10,7 +10,7 @@ readonly abstract class ValueObject
 {
 
     /**
-     * @throws \App\Core\Exception\ValueObjectOfInvalidTypeException
+     * @throws ValueObjectOfInvalidTypeException
      */
     final protected function assertOfTheSameType(ValueObject $valueObject): void
     {
@@ -21,5 +21,8 @@ readonly abstract class ValueObject
 
     abstract public function toString(): string;
 
+    /**
+     * @param static $other
+     */
     abstract public function equals(ValueObject $other): bool;
 }

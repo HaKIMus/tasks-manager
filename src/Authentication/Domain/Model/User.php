@@ -2,7 +2,7 @@
 
 namespace App\Authentication\Domain\Model;
 
-use App\Authentication\Infrastructure\Repository\UserRepository;
+use App\Authentication\Infrastructure\Dbal\Repository\UserRepository;
 use App\Tasks\Domain\Model\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     public function getRoles(): array
@@ -109,8 +109,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $_ENV["SALT"] ?: "9067845067348956238";
     }
 
-    public function eraseCredentials(): void {}
+    public function eraseCredentials(): void
+    {
+    }
 
+    /**
+     * @param array<string> $roles
+     * @param Collection<int, Task> $tasks
+     */
     public static function createUser(
         UserPasswordHasherInterface $hasher,
         Uuid $id,

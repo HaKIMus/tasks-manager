@@ -6,6 +6,7 @@ namespace App\Tasks\Domain\Model;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Authentication\Domain\Model\User;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Entity;
@@ -23,19 +24,20 @@ class Task
 {
     public function __construct(
         #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
-        #[Embedded(class: TaskName::class)] private TaskName $name,
-        #[Embedded(class: TaskDescription::class)] private TaskDescription $description,
-        #[Embedded(class: TaskStatus::class)] private TaskStatus $status,
+        #[Embedded(class: TaskName::class, columnPrefix: false)] private TaskName $name,
+        #[Embedded(class: TaskDescription::class, columnPrefix: false)] private TaskDescription $description,
+        #[Embedded(class: TaskStatus::class, columnPrefix: false)] private TaskStatus $status,
         #[ManyToOne(targetEntity: TaskCategory::class, cascade: ['persist'])] #[JoinColumn(name: "category_id", referencedColumnName: "id")]
         private TaskCategory $category,
 
-        #[Column(type: "datetime")] private \DateTimeInterface $dueTo,
-        #[Column(type: "datetime")] private readonly \DateTimeInterface $createdAt,
+        #[Column(type: "datetime")] private DateTimeInterface $dueTo,
+        #[Column(type: "datetime")] private readonly DateTimeInterface $createdAt,
 
         #[ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
         #[JoinColumn(nullable: false)]
         private User $user,
-    ) {}
+    ) {
+    }
 
     public function getId(): Uuid
     {
@@ -68,12 +70,12 @@ class Task
         return $this->category;
     }
 
-    public function getDueTo(): \DateTimeInterface
+    public function getDueTo(): DateTimeInterface
     {
         return $this->dueTo;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }

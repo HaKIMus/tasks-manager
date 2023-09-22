@@ -6,7 +6,11 @@ namespace App\Core\DataFixtures;
 
 use App\Authentication\Domain\Model\User;
 use App\Tasks\Domain\Model\Task;
+use App\Tasks\Domain\Model\TaskDescription;
+use App\Tasks\Domain\Model\TaskName;
 use App\Tasks\Domain\Model\TaskStatus;
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,19 +19,19 @@ use Symfony\Component\Uid\Uuid;
 class TasksFixture extends Fixture implements DependentFixtureInterface
 {
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var User $user */
         $user = $this->getReference("user");
 
         $task = new Task(
             Uuid::v4(),
-            'Task 1',
-            'Task 1 description',
-            TaskStatus::STATUS_PENDING,
+            new TaskName('Task 1'),
+            new TaskDescription('Task 1 description'),
+            new TaskStatus(TaskStatus::STATUS_PENDING),
             $this->getReference("general_category"),
-            (new \DateTimeImmutable('now'))->add(new \DateInterval("P3M")),
-            new \DateTimeImmutable('now'),
+            (new DateTimeImmutable('now'))->add(new DateInterval("P3M")),
+            new DateTimeImmutable('now'),
             $user
         );
 

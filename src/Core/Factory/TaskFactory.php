@@ -9,7 +9,7 @@ use App\Tasks\Domain\Model\Task;
 
 /**
  * @template DATA of DataFactory
- * @implements Factory<Task, DataFactory>
+ * @extends Factory<Task, DataFactory>
  */
 interface TaskFactory extends Factory
 {
