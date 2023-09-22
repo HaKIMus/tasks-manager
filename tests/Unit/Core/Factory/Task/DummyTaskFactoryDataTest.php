@@ -45,7 +45,7 @@ final class DummyTaskFactoryDataTest extends TestCase
             Uuid::v4(),
             new TaskName('Test Name'),
             new TaskDescription('Test Description'),
-            new TaskStatus('Pending'),
+            new TaskStatus(TaskStatus::STATUS_PENDING),
             $mockTaskCategory,
             $mockDateTime,
             $mockDateTime
@@ -54,7 +54,7 @@ final class DummyTaskFactoryDataTest extends TestCase
         $this->assertNotNull($dummyTaskFactoryData->getId());
         $this->assertEquals('Test Name', $dummyTaskFactoryData->getName()->toString());
         $this->assertEquals(new TaskDescription('Test Description'), $dummyTaskFactoryData->getDescription());
-        $this->assertEquals(new TaskStatus('Pending'), $dummyTaskFactoryData->getStatus());
+        $this->assertEquals(new TaskStatus(TaskStatus::STATUS_PENDING), $dummyTaskFactoryData->getStatus());
         $this->assertSame($mockTaskCategory, $dummyTaskFactoryData->getTaskCategory());
         $this->assertSame($mockDateTime, $dummyTaskFactoryData->getCreatedAt());
         $this->assertSame($mockDateTime, $dummyTaskFactoryData->getDueTo());

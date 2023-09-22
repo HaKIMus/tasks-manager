@@ -40,7 +40,7 @@ final class DummyTaskFactoryTest extends TestCase
         $this->assertEquals($id, $task->getId());
         $this->assertEquals('Test Name', $task->getName()->toString());
         $this->assertEquals('Test Description', $task->getDescription()->toString());
-        $this->assertEquals('Pending', $task->getStatus()->toString());
+        $this->assertEquals('pending', $task->getStatus()->toString());
         $this->assertSame($taskCategory, $task->getCategory());
         $this->assertEquals($mockUser, $task->getUser());
     }
