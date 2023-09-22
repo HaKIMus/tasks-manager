@@ -71,10 +71,10 @@ final class TaskV1Controller extends AbstractController implements AppController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $payload = TaskV1Dto::createFromPayload($request->getPayload());
-
         /** @var User $user */
         $user = $this->getUser();
+
+        $payload = TaskV1Dto::createFromPayload($request->getPayload());
         $payload->appendUser($user);
 
         $task = $this->tasksFactory->create($payload);
