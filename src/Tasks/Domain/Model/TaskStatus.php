@@ -13,9 +13,9 @@ use Webmozart\Assert\Assert;
 #[Embeddable]
 readonly class TaskStatus extends ValueObject
 {
-    public const STATUS_PENDING = 'Pending';
-    public const STATUS_IN_PROGRESS = 'In Progress';
-    public const STATUS_COMPLETED = 'Completed';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_IN_PROGRESS = 'in progress';
+    public const STATUS_COMPLETED = 'completed';
 
     public function __construct(
         #[Column(type: 'string', length: 50)]

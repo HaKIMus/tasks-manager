@@ -11,6 +11,8 @@ use App\Tasks\Domain\UserTasksResource;
 use App\Tasks\Ui\Api\V1\Model\TaskV1Dto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
@@ -47,7 +49,7 @@ final class TaskV1Controller extends AbstractController implements AppController
         );
     }
 
-    #[Route('/', name: 'api_v1_get_tasks', methods: ['GET'])]
+    #[Route(name: 'api_v1_get_tasks', methods: ['GET'])]
     public function getTasks(): JsonResponse
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -64,17 +66,24 @@ final class TaskV1Controller extends AbstractController implements AppController
         );
     }
 
-    #[Route('/', name: 'api_v1_post_tasks', methods: ['POST'])]
-    public function postTask(#[MapRequestPayload] TaskV1Dto $payload): JsonResponse
+    #[Route(name: 'api_v1_post_tasks', methods: ['POST'])]
+    public function postTask(Request $request): JsonResponse
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $payload = TaskV1Dto::createFromPayload($request->getPayload());
 
         /** @var User $user */
         $user = $this->getUser();
         $payload->appendUser($user);
-        $task = $this->tasksFactory->create($payload);
 
-        return $this->json("ok");
+        $task = $this->tasksFactory->create($payload);
+        $this->userTasksResource->save($task);
+
+        return $this->json(
+            sprintf("Resource of id %s created.", $task->getId()->toRfc4122()),
+            Response::HTTP_CREATED
+        );
     }
 
 }

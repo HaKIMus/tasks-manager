@@ -12,15 +12,14 @@ use Doctrine\ORM\Mapping\Table;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
-#[Entity]
+#[Entity(repositoryClass: 'App\Tasks\Infrastructure\Dbal\Repository\DbalTaskCategoryRepository')]
 #[Table(name: 'task_categories')]
 class TaskCategory
 {
     public function __construct(
-        #[Id] #[Column(type: UuidType::NAME)] private Uuid                                        $id,
+        #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
         #[Embedded(class: TaskCategoryName::class, columnPrefix: false)] private TaskCategoryName $name,
-    )
-    {
+    ) {
     }
 
     public function getId(): Uuid

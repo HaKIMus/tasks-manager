@@ -6,11 +6,12 @@ namespace App\Tasks\Ui\Api\V1\Model;
 
 use App\Authentication\Domain\Model\User;
 use App\Core\Factory\DataFactory;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TaskV1Dto implements DataFactory
+final class TaskV1Dto implements DataFactory
 {
-    private ?User $user;
+    private ?User $user = null;
 
     public function __construct(
         #[Assert\NotBlank]
@@ -43,6 +44,25 @@ class TaskV1Dto implements DataFactory
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public static function createFromPayload(InputBag $payload): self
+    {
+        $id = $payload->get('id', null);
+        $name = $payload->get('name', null);
+        $description = $payload->get('description', null);
+        $status = $payload->get('status', null);
+        $categoryName = $payload->get('category_name', null);
+        $due_to = $payload->get('due_to', null);
+
+        return new self(
+            $id,
+            $name,
+            $description,
+            $status,
+            $categoryName,
+            $due_to,
+        );
     }
 
 }

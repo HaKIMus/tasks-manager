@@ -41,7 +41,7 @@ final class DbalTaskCategoryRepository extends ServiceEntityRepository implement
 
     public function findByName(TaskCategoryName $name): ?TaskCategory
     {
-        return $this->findOneBy(['name' => $name]);
+        return $this->findOneBy(['name.name' => $name->toString()]);
     }
 
     public function upsertByNameAndReturn(TaskCategoryName $name): TaskCategory

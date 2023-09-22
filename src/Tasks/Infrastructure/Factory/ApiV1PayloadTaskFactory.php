@@ -35,13 +35,13 @@ final readonly class ApiV1PayloadTaskFactory implements TaskFactory
         }
 
         $category = $this->categoryResource->upsertByNameAndReturn(new TaskCategoryName($factoryData->category_name));
-        $dueTo = \DateTimeImmutable::createFromFormat($factoryData->due_to, 'Y-m-d');
+        $dueTo = \DateTimeImmutable::createFromFormat('Y-m-d', $factoryData->due_to);
 
         return new Task(
             Uuid::fromString($factoryData->id),
             new TaskName($factoryData->name),
             new TaskDescription($factoryData->description),
-            new TaskStatus($factoryData->status),
+            new TaskStatus(mb_strtolower($factoryData->status)),
             $category,
             $dueTo,
             new \DateTimeImmutable('now'),
