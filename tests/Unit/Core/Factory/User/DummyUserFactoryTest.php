@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Core\Factory\User;
 
 use App\Authentication\Domain\Model\User;
-use App\Core\Factory\User\DummyUserFactory;
-use App\Core\Factory\User\DummyUserFactoryData;
+use App\Authentication\Infrastructure\Factory\DummyUserFactory;
+use App\Authentication\Infrastructure\Factory\DummyUserFactoryData;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

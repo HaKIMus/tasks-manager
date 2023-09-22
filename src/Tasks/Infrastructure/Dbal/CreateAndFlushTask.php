@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Tasks\Infrastructure\Dbal;
 
 use App\Authentication\Domain\Model\User;
+use App\Core\Factory\DataFactory;
+use App\Core\Factory\TaskFactory;
+use App\Core\Factory\UserFactory;
 use App\Tasks\Domain\Model\Task;
 use App\Tasks\Infrastructure\Factory\DummyTaskFactory;
 use App\Tasks\Infrastructure\Factory\DummyTaskFactoryData;
@@ -14,14 +17,18 @@ readonly class CreateAndFlushTask
 {
 
     public function __construct(
-        private DummyTaskFactory $dummyTaskFactory,
         private EntityManagerInterface $entityManager,
     ) {}
 
-    public function create(User $user): Task
+    /**
+     * @template T of DataFactory
+     * @param TaskFactory<T> $taskFactory
+     * @param DataFactory $data
+     * @return Task
+     */
+    public function create(TaskFactory $taskFactory, DataFactory $data): Task
     {
-        $factoryData = new DummyTaskFactoryData($user);
-        $task = $this->dummyTaskFactory->create($factoryData);
+        $task = $taskFactory->create($data);
 
         $this->entityManager->persist($task);
         $this->entityManager->flush();
