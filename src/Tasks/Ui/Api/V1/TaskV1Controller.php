@@ -7,6 +7,7 @@ namespace App\Tasks\Ui\Api\V1;
 use App\Authentication\Domain\Model\User;
 use App\Core\Contract\AppController;
 use App\Core\Factory\TaskFactory;
+use App\Tasks\Application\Service\UpdateTaskCategory;
 use App\Tasks\Domain\UserTasksResource;
 use App\Tasks\Ui\Api\V1\Model\TaskV1Dto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,8 @@ final class TaskV1Controller extends AbstractController implements AppController
         private readonly SerializerInterface $serializer,
         private readonly UserTasksResource $userTasksResource,
         /** @var TaskFactory<TaskV1Dto> */
-        private readonly TaskFactory $tasksFactory
+        private readonly TaskFactory $tasksFactory,
+        private readonly UpdateTaskCategory $updateTaskCategory,
     ) {
     }
 
@@ -99,6 +101,29 @@ final class TaskV1Controller extends AbstractController implements AppController
             sprintf("Resource of id %s created.", $task->getId()->toRfc4122()),
             Response::HTTP_CREATED
         );
+    }
+
+    #[Route('/{id}', name: 'api_v1_put_task', methods: ['PUT'])]
+    public function updateTask(Request $request, Uuid $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $task = $this->userTasksResource->findForUserByTaskId($user, $id);
+        $categoryName = $request->getPayload()->get('category_name', null);
+
+        if (!$categoryName) {
+            return $this->json(
+                'Category name is required.',
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $this->updateTaskCategory->update($task, $categoryName);
+
+        return $this->json('Resource updated.', Response::HTTP_OK);
     }
 
 }

@@ -79,4 +79,9 @@ class Task
     {
         return $this->createdAt;
     }
+
+    public function updateCategory(TaskCategory $taskCategory): void
+    {
+        $this->category = $taskCategory;
+    }
 }
