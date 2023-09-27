@@ -121,7 +121,14 @@ final class TaskV1Controller extends AbstractController implements AppController
             );
         }
 
-        $this->updateTaskCategory->update($task, $categoryName);
+        try {
+            $this->updateTaskCategory->update($task, $categoryName);
+        } catch (InvalidArgumentException $e) {
+            return $this->json(
+                $e->getMessage(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
         return $this->json('Resource updated.', Response::HTTP_OK);
     }
