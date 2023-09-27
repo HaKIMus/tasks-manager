@@ -115,7 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @param array<string> $roles
-     * @param Collection<int, Task> $tasks
+     * @param Collection<array-key, Task> $tasks
      */
     public static function createUser(
         UserPasswordHasherInterface $hasher,

@@ -79,6 +79,9 @@ final class TaskV1Dto implements DataFactory
         );
     }
 
+    /**
+     * @param array<string, string|null> $variables
+     */
     private static function validate(array $variables): void
     {
         Assertion::notNull($variables['name'], 'Value \'name\' can\'t be null');
