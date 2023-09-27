@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Uid\Uuid;
+use Webmozart\Assert\InvalidArgumentException;
 
 #[Route('api/v1/tasks')]
 final class TaskV1Controller extends AbstractController implements AppController
@@ -73,10 +74,25 @@ final class TaskV1Controller extends AbstractController implements AppController
         /** @var User $user */
         $user = $this->getUser();
 
-        $payload = TaskV1Dto::createFromPayload($request->getPayload());
-        $payload->appendUser($user);
+        try {
+            $payload = TaskV1Dto::createFromPayload($request->getPayload());
+            $payload->appendUser($user);
+        } catch (InvalidArgumentException $e) {
+            return $this->json(
+                $e->getMessage(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
-        $task = $this->tasksFactory->create($payload);
+        try {
+            $task = $this->tasksFactory->create($payload);
+        } catch (InvalidArgumentException $e) {
+            return $this->json(
+                $e->getMessage(),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
         $this->userTasksResource->save($task);
 
         return $this->json(
