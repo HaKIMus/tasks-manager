@@ -21,9 +21,7 @@ abstract class AppWebTestCase extends WebTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $kernel = self::bootKernel();
-
-        $this->assertSame('test', $kernel->getEnvironment());
+        $this->client = self::createClient();
 
         $this->container = static::getContainer();
 

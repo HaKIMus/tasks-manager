@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Tasks\Ui\Api\V1;
 
 use App\Tests\Common\Contract\AppWebTestCase;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
 final class TaskV1ControllerTest extends AppWebTestCase
 {
+    use ResetDatabase;
     private Uuid $id;
 
     public function setUp(): void
