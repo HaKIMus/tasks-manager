@@ -79,23 +79,15 @@ final class TaskV1Controller extends AbstractController implements AppController
         try {
             $payload = TaskV1Dto::createFromPayload($request->getPayload());
             $payload->appendUser($user);
-        } catch (InvalidArgumentException $e) {
-            return $this->json(
-                $e->getMessage(),
-                Response::HTTP_BAD_REQUEST
-            );
-        }
 
-        try {
             $task = $this->tasksFactory->create($payload);
+            $this->userTasksResource->save($task);
         } catch (InvalidArgumentException $e) {
             return $this->json(
                 $e->getMessage(),
                 Response::HTTP_BAD_REQUEST
             );
         }
-
-        $this->userTasksResource->save($task);
 
         return $this->json(
             sprintf("Resource of id %s created.", $task->getId()->toRfc4122()),
