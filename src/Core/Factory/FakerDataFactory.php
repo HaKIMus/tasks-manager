@@ -9,10 +9,12 @@ use Faker\Generator;
 
 abstract class FakerDataFactory implements DataFactory
 {
+
     protected Generator $faker;
 
     public function __construct()
     {
         $this->faker = Factory::create();
     }
+
 }

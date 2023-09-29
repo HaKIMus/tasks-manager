@@ -10,6 +10,7 @@ use Symfony\Component\Uid\Uuid;
 
 interface TaskCategoryResource
 {
+
     public function save(TaskCategory $category): void;
 
     public function findById(Uuid $id): ?TaskCategory;
@@ -17,4 +18,5 @@ interface TaskCategoryResource
     public function findByName(TaskCategoryName $name): ?TaskCategory;
 
     public function upsertByNameAndReturn(TaskCategoryName $name): TaskCategory;
+
 }

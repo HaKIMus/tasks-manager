@@ -6,4 +6,5 @@ namespace App\Core\Factory;
 
 interface DataFactory
 {
+
 }

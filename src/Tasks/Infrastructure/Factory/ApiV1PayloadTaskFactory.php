@@ -21,9 +21,9 @@ use Symfony\Component\Uid\Uuid;
  */
 final readonly class ApiV1PayloadTaskFactory implements TaskFactory
 {
-    public function __construct(private TaskCategoryResource $categoryResource)
-    {
-    }
+
+    public function __construct(private TaskCategoryResource $categoryResource
+    ) {}
 
     /**
      * @param TaskV1Dto $factoryData
@@ -34,8 +34,10 @@ final readonly class ApiV1PayloadTaskFactory implements TaskFactory
             throw new InvalidArgumentException("To create a Task instance, user must be appended to the factory data.");
         }
 
-        $category = $this->categoryResource->upsertByNameAndReturn(new TaskCategoryName($factoryData->category_name));
-        $dueTo = DateTimeImmutable::createFromFormat('Y-m-d', $factoryData->due_to);
+        $category
+            = $this->categoryResource->upsertByNameAndReturn(new TaskCategoryName($factoryData->categoryName));
+        $dueTo = DateTimeImmutable::createFromFormat('Y-m-d',
+            $factoryData->dueTo);
 
         return new Task(
             Uuid::fromString($factoryData->id),
@@ -48,4 +50,5 @@ final readonly class ApiV1PayloadTaskFactory implements TaskFactory
             $factoryData->getUser(),
         );
     }
+
 }

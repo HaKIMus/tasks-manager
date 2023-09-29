@@ -9,6 +9,13 @@ use App\Core\Exception\ValueObjectOfInvalidTypeException;
 readonly abstract class ValueObject
 {
 
+    abstract public function toString(): string;
+
+    /**
+     * @param static $other
+     */
+    abstract public function equals(ValueObject $other): bool;
+
     /**
      * @throws ValueObjectOfInvalidTypeException
      */
@@ -19,10 +26,4 @@ readonly abstract class ValueObject
         }
     }
 
-    abstract public function toString(): string;
-
-    /**
-     * @param static $other
-     */
-    abstract public function equals(ValueObject $other): bool;
 }

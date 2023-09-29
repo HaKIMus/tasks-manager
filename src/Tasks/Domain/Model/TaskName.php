@@ -13,6 +13,7 @@ use Webmozart\Assert\Assert;
 #[Embeddable]
 readonly class TaskName extends ValueObject
 {
+
     public function __construct(
         #[Column(type: 'string', length: 255)]
         private string $name
@@ -33,6 +34,7 @@ readonly class TaskName extends ValueObject
 
     /**
      * @param static $other
+     *
      * @throws ValueObjectOfInvalidTypeException
      */
     public function equals(ValueObject $other): bool

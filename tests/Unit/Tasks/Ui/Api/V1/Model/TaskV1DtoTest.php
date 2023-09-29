@@ -27,8 +27,8 @@ final class TaskV1DtoTest extends TestCase
         $this->assertEquals('name', $dto->name);
         $this->assertEquals('description', $dto->description);
         $this->assertEquals('pending', $dto->status);
-        $this->assertEquals('category_name', $dto->category_name);
-        $this->assertEquals('2021-01-01', $dto->due_to);
+        $this->assertEquals('category_name', $dto->categoryName);
+        $this->assertEquals('2021-01-01', $dto->dueTo);
     }
 
     public function testHasUserAndAppendUserAndGetUser(): void
@@ -61,8 +61,8 @@ final class TaskV1DtoTest extends TestCase
         $this->assertEquals('name_from_payload', $dto->name);
         $this->assertEquals('description_from_payload', $dto->description);
         $this->assertEquals('completed', $dto->status);
-        $this->assertEquals('category_from_payload', $dto->category_name);
-        $this->assertEquals('2021-01-02', $dto->due_to);
+        $this->assertEquals('category_from_payload', $dto->categoryName);
+        $this->assertEquals('2021-01-02', $dto->dueTo);
     }
 
     public function testValidation(): void

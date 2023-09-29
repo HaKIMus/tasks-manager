@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
 {
+
     use MicroKernelTrait;
 
     protected function build(ContainerBuilder $container): void
@@ -18,4 +19,5 @@ class Kernel extends BaseKernel
         $container->registerForAutoconfiguration(AppController::class)
             ->addTag('controller.service_arguments');
     }
+
 }

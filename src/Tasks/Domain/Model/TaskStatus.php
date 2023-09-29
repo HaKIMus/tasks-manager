@@ -13,9 +13,19 @@ use InvalidArgumentException;
 #[Embeddable]
 readonly class TaskStatus extends ValueObject
 {
+
     public const STATUS_PENDING = 'pending';
+
     public const STATUS_IN_PROGRESS = 'in progress';
+
     public const STATUS_COMPLETED = 'completed';
+
+    const STATUSES
+        = [
+            self::STATUS_PENDING,
+            self::STATUS_IN_PROGRESS,
+            self::STATUS_COMPLETED,
+        ];
 
     public function __construct(
         #[Column(type: 'string', length: 50)]
@@ -39,6 +49,7 @@ readonly class TaskStatus extends ValueObject
 
     /**
      * @param static $other
+     *
      * @throws ValueObjectOfInvalidTypeException
      */
     public function equals(ValueObject $other): bool

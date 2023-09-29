@@ -9,44 +9,23 @@ use App\Core\Factory\DataFactory;
 use App\Tasks\Domain\Model\TaskStatus;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Validator\Constraints as Assert;
-use Webmozart\Assert\Assert as Assertion;
+use Webmozart\Assert\Assert;
 
 final class TaskV1Dto implements DataFactory
 {
+
     private ?User $user = null;
 
     public function __construct(
-        #[Assert\NotBlank]
         readonly public string $id,
-        #[Assert\NotBlank]
         readonly public string $name,
-        #[Assert\NotBlank]
         readonly public string $description,
-        #[Assert\NotBlank]
-        #[Assert\Choice(choices: ['pending', 'done', 'completed'])]
         readonly public string $status,
-        #[Assert\NotBlank]
-        readonly public string $category_name,
-        #[Assert\NotBlank]
-        #[Assert\DateTime(format: 'Y-m-d')]
-        readonly public string $due_to,
+        readonly public string $categoryName,
+        readonly public string $dueTo,
     ) {
-    }
-
-    public function hasUser(): bool
-    {
-        return $this->user !== null;
-    }
-
-    public function appendUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
+        Assert::allNotEmpty([$id, $name, $status, $categoryName, $dueTo]);
+        Assert::inArray($status, TaskStatus::STATUSES);
     }
 
     public static function createFromPayload(InputBag $payload): self
@@ -64,7 +43,7 @@ final class TaskV1Dto implements DataFactory
             'description' => $description,
             'status' => $status,
             'category_name' => $categoryName,
-            'due_to' => $dueTo
+            'due_to' => $dueTo,
         ];
 
         self::validate($variables);
@@ -84,8 +63,24 @@ final class TaskV1Dto implements DataFactory
      */
     private static function validate(array $variables): void
     {
-        Assertion::notNull($variables['name'], 'Value \'name\' can\'t be null');
-        Assertion::notNull($variables['due_to'], 'Value \'due_to\' can\'t be null');
+        Assert::notNull($variables['name'], 'Value \'name\' can\'t be null');
+        Assert::notNull($variables['due_to'],
+            'Value \'due_to\' can\'t be null');
+    }
+
+    public function hasUser(): bool
+    {
+        return $this->user !== null;
+    }
+
+    public function appendUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
     }
 
 }

@@ -15,7 +15,7 @@ final class DummyUserFactoryData extends FakerDataFactory
 {
 
     /**
-     * @param array<string> $roles
+     * @param array<string>              $roles
      * @param Collection<int, Task>|null $tasks
      */
     public function __construct(
@@ -84,4 +84,5 @@ final class DummyUserFactoryData extends FakerDataFactory
     {
         return $this->roles;
     }
+
 }

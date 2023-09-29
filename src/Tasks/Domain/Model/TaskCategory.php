@@ -16,11 +16,11 @@ use Symfony\Component\Uid\Uuid;
 #[Table(name: 'task_categories')]
 class TaskCategory
 {
+
     public function __construct(
         #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
         #[Embedded(class: TaskCategoryName::class, columnPrefix: false)] private TaskCategoryName $name,
-    ) {
-    }
+    ) {}
 
     public function getId(): Uuid
     {
@@ -31,4 +31,5 @@ class TaskCategory
     {
         return $this->name;
     }
+
 }

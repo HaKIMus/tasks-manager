@@ -15,7 +15,8 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @extends ServiceEntityRepository<TaskCategory>
  */
-final class DbalTaskCategoryRepository extends ServiceEntityRepository implements
+final class DbalTaskCategoryRepository extends
+    ServiceEntityRepository implements
     TaskCategoryResource
 {
 
@@ -33,17 +34,6 @@ final class DbalTaskCategoryRepository extends ServiceEntityRepository implement
         return $this->find($id);
     }
 
-    public function save(TaskCategory $category): void
-    {
-        $this->entityManager->persist($category);
-        $this->entityManager->flush();
-    }
-
-    public function findByName(TaskCategoryName $name): ?TaskCategory
-    {
-        return $this->findOneBy(['name.name' => $name->toString()]);
-    }
-
     public function upsertByNameAndReturn(TaskCategoryName $name): TaskCategory
     {
         if (!$category = $this->findByName($name)) {
@@ -53,4 +43,16 @@ final class DbalTaskCategoryRepository extends ServiceEntityRepository implement
 
         return $category;
     }
+
+    public function findByName(TaskCategoryName $name): ?TaskCategory
+    {
+        return $this->findOneBy(['name.name' => $name->toString()]);
+    }
+
+    public function save(TaskCategory $category): void
+    {
+        $this->entityManager->persist($category);
+        $this->entityManager->flush();
+    }
+
 }

@@ -11,6 +11,7 @@ use Symfony\Component\Uid\Uuid;
 
 interface UserTasksResource
 {
+
     public function save(Task $task): void;
 
     public function findForUserByTaskId(User $user, Uuid $taskId): ?Task;
@@ -23,5 +24,9 @@ interface UserTasksResource
     /**
      * @return array<Task>
      */
-    public function findForUserByCategory(User $user, TaskCategory $category): array;
+    public function findForUserByCategory(
+        User $user,
+        TaskCategory $category
+    ): array;
+
 }

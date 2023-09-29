@@ -8,6 +8,7 @@ use App\Core\Contract\AppException;
 
 final class ValueObjectOfInvalidTypeException extends AppException
 {
+
     public static function fromInvalidType(object $valueObject): self
     {
         return new self(
@@ -17,4 +18,5 @@ final class ValueObjectOfInvalidTypeException extends AppException
             )
         );
     }
+
 }

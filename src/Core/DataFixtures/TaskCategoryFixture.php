@@ -12,6 +12,7 @@ use Symfony\Component\Uid\Uuid;
 
 class TaskCategoryFixture extends Fixture
 {
+
     public function load(ObjectManager $manager): void
     {
         $taskCategory = new TaskCategory(
@@ -24,4 +25,5 @@ class TaskCategoryFixture extends Fixture
 
         $this->addReference("general_category", $taskCategory);
     }
+
 }

@@ -13,10 +13,12 @@ use App\Tasks\Domain\Model\Task;
  */
 interface TaskFactory extends Factory
 {
+
     /**
      * @param DATA $factoryData
      *
      * @return Task
      */
     public function create(mixed $factoryData): mixed;
+
 }

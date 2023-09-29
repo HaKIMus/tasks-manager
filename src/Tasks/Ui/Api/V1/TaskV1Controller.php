@@ -7,9 +7,10 @@ namespace App\Tasks\Ui\Api\V1;
 use App\Authentication\Domain\Model\User;
 use App\Core\Contract\AppController;
 use App\Core\Factory\TaskFactory;
-use App\Tasks\Application\Service\UpdateTaskCategory;
+use App\Tasks\Application\Service\UpdateTask;
 use App\Tasks\Domain\UserTasksResource;
 use App\Tasks\Ui\Api\V1\Model\TaskV1Dto;
+use App\Tasks\Ui\Api\V1\Model\UpdateTaskV1Dto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,9 +30,8 @@ final class TaskV1Controller extends AbstractController implements AppController
         private readonly UserTasksResource $userTasksResource,
         /** @var TaskFactory<TaskV1Dto> */
         private readonly TaskFactory $tasksFactory,
-        private readonly UpdateTaskCategory $updateTaskCategory,
-    ) {
-    }
+        private readonly UpdateTask $updateTaskCategory,
+    ) {}
 
     #[Route('/{id}', name: 'api_v1_get_task', methods: ['GET'])]
     public function getTask(Uuid $id): JsonResponse
@@ -102,19 +102,12 @@ final class TaskV1Controller extends AbstractController implements AppController
 
         /** @var User $user */
         $user = $this->getUser();
-
         $task = $this->userTasksResource->findForUserByTaskId($user, $id);
-        $categoryName = $request->getPayload()->get('category_name', null);
-
-        if (!$categoryName) {
-            return $this->json(
-                'Category name is required.',
-                Response::HTTP_BAD_REQUEST
-            );
-        }
 
         try {
-            $this->updateTaskCategory->update($task, $categoryName);
+            $payload
+                = UpdateTaskV1Dto::createFromPayload($request->getPayload());
+            $this->updateTaskCategory->update($task, $payload);
         } catch (InvalidArgumentException $e) {
             return $this->json(
                 $e->getMessage(),

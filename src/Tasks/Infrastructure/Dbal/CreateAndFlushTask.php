@@ -14,13 +14,13 @@ readonly class CreateAndFlushTask
 
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ) {
-    }
+    ) {}
 
     /**
      * @template T of DataFactory
      * @param TaskFactory<T> $taskFactory
-     * @param DataFactory $data
+     * @param DataFactory    $data
+     *
      * @return Task
      */
     public function create(TaskFactory $taskFactory, DataFactory $data): Task

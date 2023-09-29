@@ -12,10 +12,12 @@ use App\Authentication\Domain\Model\User;
  */
 interface UserFactory extends Factory
 {
+
     /**
      * @param DATA $factoryData
      *
      * @return User
      */
     public function create(mixed $factoryData): mixed;
+
 }

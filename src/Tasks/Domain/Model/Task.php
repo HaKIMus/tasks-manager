@@ -22,6 +22,7 @@ use Symfony\Component\Uid\Uuid;
 #[ApiResource]
 class Task
 {
+
     public function __construct(
         #[Id] #[Column(type: UuidType::NAME)] private Uuid $id,
         #[Embedded(class: TaskName::class, columnPrefix: false)] private TaskName $name,
@@ -36,14 +37,12 @@ class Task
         #[ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
         #[JoinColumn(nullable: false)]
         private User $user,
-    ) {
-    }
+    ) {}
 
     public function getId(): Uuid
     {
         return $this->id;
     }
-
 
     public function getUser(): User
     {
@@ -84,4 +83,25 @@ class Task
     {
         $this->category = $taskCategory;
     }
+
+    public function updateName(TaskName $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function updateStatus(TaskStatus $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function updateDescription(TaskDescription $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function updateDueTo(DateTimeInterface $dueTo): void
+    {
+        $this->dueTo = $dueTo;
+    }
+
 }

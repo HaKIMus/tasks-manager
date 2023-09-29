@@ -51,8 +51,10 @@ final class DbalTaskRepository extends ServiceEntityRepository implements
         return $this->findOneBy(['user' => $user, 'id' => $taskId]);
     }
 
-    public function findForUserByCategory(User $user, TaskCategory $category): array
-    {
+    public function findForUserByCategory(
+        User $user,
+        TaskCategory $category
+    ): array {
         return $this->findBy(['user' => $user, 'category' => $category]);
     }
 

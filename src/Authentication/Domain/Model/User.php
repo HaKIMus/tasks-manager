@@ -18,6 +18,7 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     #[Column(type: 'string')]
     private string $password;
 
@@ -32,7 +33,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         /**
          * @var Collection<int, Task>
          */
-        #[OneToMany(mappedBy: 'user', targetEntity: Task::class, cascade: ['persist', 'remove'])]
+        #[OneToMany(mappedBy: 'user', targetEntity: Task::class, cascade: [
+            'persist',
+            'remove',
+        ])]
         private Collection $tasks = new ArrayCollection(),
 
         /**
@@ -44,6 +48,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (empty($this->roles)) {
             $this->roles[] = 'ROLE_USER';
         }
+    }
+
+    /**
+     * @param array<string> $roles
+     * @param Collection<array-key, Task> $tasks
+     */
+    public static function createUser(
+        UserPasswordHasherInterface $hasher,
+        Uuid $id,
+        string $email,
+        string $password,
+        array $roles,
+        Collection $tasks,
+    ): User {
+        $user = new User(
+            $id,
+            $email,
+            $tasks,
+            $roles
+        );
+
+        $hashedPassword = $hasher->hashPassword($user, $password);
+        $user->setPassword($hashedPassword);
+
+        return $user;
     }
 
     /**
@@ -109,32 +138,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $_ENV["SALT"] ?: "9067845067348956238";
     }
 
-    public function eraseCredentials(): void
-    {
-    }
+    public function eraseCredentials(): void {}
 
-    /**
-     * @param array<string> $roles
-     * @param Collection<array-key, Task> $tasks
-     */
-    public static function createUser(
-        UserPasswordHasherInterface $hasher,
-        Uuid $id,
-        string $email,
-        string $password,
-        array $roles,
-        Collection $tasks,
-    ): User {
-        $user = new User(
-            $id,
-            $email,
-            $tasks,
-            $roles
-        );
-
-        $hashedPassword = $hasher->hashPassword($user, $password);
-        $user->setPassword($hashedPassword);
-
-        return $user;
-    }
 }

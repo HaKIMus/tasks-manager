@@ -10,9 +10,12 @@ namespace App\Core\Factory;
  */
 interface Factory
 {
+
     /**
      * @param DATA $factoryData
+     *
      * @return T
      */
     public function create(mixed $factoryData): mixed;
+
 }

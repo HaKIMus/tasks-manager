@@ -14,13 +14,13 @@ readonly class CreateAndFlushUser
 
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ) {
-    }
+    ) {}
 
     /**
      * @template T of DataFactory
      * @param UserFactory<T> $userFactory
-     * @param DataFactory $data
+     * @param DataFactory    $data
+     *
      * @return User
      */
     public function create(UserFactory $userFactory, DataFactory $data): User
