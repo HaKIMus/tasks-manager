@@ -104,4 +104,22 @@ class Task
         $this->dueTo = $dueTo;
     }
 
+    public function updateAttributes(
+        ?TaskName $name = null,
+        ?TaskStatus $status = null,
+        ?TaskDescription $description = null,
+        ?TaskCategory $category = null,
+        ?DateTimeInterface $dueTo = null,
+    ): void {
+        $updateIfPresent = function (mixed $value, callable $block) {
+            if ($value) { $block(); }
+        };
+
+        $updateIfPresent($name, fn() => $this->updateName($name));
+        $updateIfPresent($status, fn() => $this->updateStatus($status));
+        $updateIfPresent($description, fn() => $this->updateDescription($description));
+        $updateIfPresent($category, fn() => $this->updateCategory($category));
+        $updateIfPresent($dueTo, fn() => $this->updateDueTo($dueTo));
+    }
+
 }
