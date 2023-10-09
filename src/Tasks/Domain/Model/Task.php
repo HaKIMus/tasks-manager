@@ -112,7 +112,7 @@ class Task
         ?DateTimeInterface $dueTo = null,
     ): void {
         $updateIfPresent = function (mixed $value, callable $block) {
-            if ($value) { $block(); }
+            if ($value !== null) { $block(); }
         };
 
         $updateIfPresent($name, fn() => $this->updateName($name));
